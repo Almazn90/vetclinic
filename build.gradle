@@ -1,0 +1,68 @@
+group "${rootProject.group}"
+version "${rootProject.version}"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+springBoot {
+    buildInfo()
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // log
+    compile('ch.qos.logback:logback-classic:1.2.3')
+    compile('ch.qos.logback:logback-core:1.2.3')
+
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${springBootVersion}") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.0.9.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: "${springBootVersion}"
+
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile group: 'io.swagger', name: 'swagger-annotations', version: '1.5.22'
+
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
+    compile group: 'org.json', name: 'json', version: '20180813'
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.testcontainers', name: 'postgresql', version: '1.11.3'
+    testCompile group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
+    testCompile group: 'org.mock-server', name: 'mockserver-netty', version: '5.5.4'
+
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+    // db
+    compile group: 'org.hibernate', name: 'hibernate-core', version: "${hibernateVersion}"
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: "${hibernateVersion}"
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: "${hibernateValidatorVersion}"
+    compile group: 'org.hibernate', name: 'hibernate-hikaricp', version: "${hibernateVersion}"
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.3'
+    compile group: 'org.liquibase', name:'liquibase-core', version: "${liquibaseVersion}"
+
+    compile group: 'org.postgresql', name: 'postgresql', version: "${postgresqlVersion}"
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "${springBootVersion}"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
